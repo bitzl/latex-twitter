@@ -1,0 +1,44 @@
+\documentclass{minimal}
+
+\usepackage{luacode}
+\usepackage{amsfonts}
+
+% Use lualatex for urlencode
+% http://lua-users.org/wiki/StringRecipes
+
+%\begin{luacode}
+%function url_encode(str)
+%  if (str) then
+%    str = string.gsub (str, "\\n", "\\r\\n")
+%    str = string.gsub (str, "([^%w %-%_%.%~])",
+%        function (c) return string.format ("%%%02X", string.byte(c)) end)
+%    str = string.gsub (str, " ", "+")
+%  end
+%  return str	
+%end
+%\end{luacode}
+
+
+\newcommand{\Tweet}[1]{\texttt{TWEET(#1)}}
+
+\makeatletter
+\newcommand{\Test}[1]{
+\bgroup%
+\@makeother$
+\luaexec{
+	local x = string.gsub("#1", "##", "+")
+	x = string.gsub(x, "\\n", "\\r\\n")
+	x = string.gsub(str, "([^%w %-%_%.%~])")
+	tex.print(x)
+} %
+\egroup
+}
+\makeatother
+
+\begin{document}
+%\Test{With backslash: \#}
+
+\Test{Without backslash: # }
+
+$x$
+\end{document}
