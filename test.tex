@@ -3,21 +3,7 @@
 \usepackage{luacode}
 \usepackage{amsfonts}
 
-% Use lualatex for urlencode
-% http://lua-users.org/wiki/StringRecipes
-
-%\begin{luacode}
-%function url_encode(str)
-%  if (str) then
-%    str = string.gsub (str, "\\n", "\\r\\n")
-%    str = string.gsub (str, "([^%w %-%_%.%~])",
-%        function (c) return string.format ("%%%02X", string.byte(c)) end)
-%    str = string.gsub (str, " ", "+")
-%  end
-%  return str	
-%end
-%\end{luacode}
-
+\directlua{ require("latex-twitter.lua") }
 
 \newcommand{\Tweet}[1]{\texttt{TWEET(#1)}}
 
@@ -35,10 +21,16 @@
 }
 \makeatother
 
+\newcommand{\prepare}[1]{\luaexec{tex.print(prepare("#1"))}}
+
 \begin{document}
-%\Test{With backslash: \#}
+% %\Test{With backslash: \#}
 
-\Test{Without backslash: # }
+% \Test{Without backslash: # }
 
-$x$
+% $x$
+
+
+Test: \prepare{Nett http://www.example.com/index.php?id=42&x=4.}
+
 \end{document}
